@@ -28,5 +28,5 @@ If you use code::block like compiler, you need to compile the SFML on yourself w
 # Credits
 Thanks to :
   * [SwanGFX] : for textures and the idea of the VideoGame
-  * ??? : for musical ambiance
+  * ??? : for the music
   * [SuperFola](https://superfola.github.io) for [debug.hpp](https://github.com/SuperFola/Unamed-Endive/blob/master/debug.hpp) and [container.hpp](https://github.com/SuperFola/Unamed-Endive/blob/master/src/abstract/container.hpp) from [Unamed-Endive Project](https://github.com/SuperFola/Unamed-Endive) and for this help about the code
