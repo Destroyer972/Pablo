@@ -29,3 +29,4 @@ If you use code::block like compiler, you need to compile the SFML on yourself w
 Thanks to :
   * SwanGFX : for textures and the idea of the VideoGame
   * ??? : for musical ambiance
+  * SuperFola for [debug.hpp](https://github.com/SuperFola/Unamed-Endive/blob/master/debug.hpp) and [container.hpp](https://github.com/SuperFola/Unamed-Endive/blob/master/src/abstract/container.hpp) from Unamed-Endive Project
