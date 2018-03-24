@@ -17,4 +17,15 @@ However in this game, some cards have special effect.
 * King of Spades : 0 points
 * Jack and Queen and others Kings : 10 points
 
-#
+# Requirement
+Actually you need to install the game from the source, you need to have an up-date-compiler C++ and the SFML 2.4.2 
+
+Executables comming soon
+
+# Note for compiling the project
+If you use code::block like compiler, you need to compile the SFML on yourself with CMake
+
+# Credits
+Thanks to :
+  * SwanGFX : for textures and the idea of the VideoGame
+  * ??? : for musical ambiance
