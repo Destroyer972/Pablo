@@ -112,7 +112,7 @@ void Package::clear(){
 }
 
 void Package::returnPackage(){
-    for (int i=0;i<m_cardArray.size() -1;i++){
+    for (int i=0;i<m_cardArray.size();i++){
         m_cardArray[i].returnCard();
     }
 }
@@ -120,8 +120,6 @@ void Package::returnPackage(){
 void Package::transferCard(Package& packageA,Package& packageB){
 
     packageB.m_cardArray = packageA.m_cardArray;
-    for (int i=0;i<packageB.m_cardArray.size() -1;i++){
-        //packageB.m_cardArray[i].setPosition();
-    }
+
 
 }
