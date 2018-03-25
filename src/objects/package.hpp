@@ -38,11 +38,14 @@ public:
     void addCard(Card card);
     int getSize();
     void loadSprite();
+    void clear();
+    void returnPackage();
 
 
 
     //statics functions
     static std::vector<Card> generatePackage(State state,Container<sf::Texture>& textures);
+    static void transferCard(Package& packageA,Package& packageB);
 
 
 

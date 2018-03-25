@@ -106,3 +106,22 @@ std::vector<Card> Package::generatePackage(State state,Container<sf::Texture>& t
 
     return cardArray;
 }
+
+void Package::clear(){
+    this->m_cardArray.clear();
+}
+
+void Package::returnPackage(){
+    for (int i=0;i<m_cardArray.size() -1;i++){
+        m_cardArray[i].returnCard();
+    }
+}
+
+void Package::transferCard(Package& packageA,Package& packageB){
+
+    packageB.m_cardArray = packageA.m_cardArray;
+    for (int i=0;i<packageB.m_cardArray.size() -1;i++){
+        //packageB.m_cardArray[i].setPosition();
+    }
+
+}

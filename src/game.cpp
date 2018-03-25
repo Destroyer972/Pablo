@@ -175,6 +175,12 @@ void Game::render(){
     else if (p.getSize() == 0){
         drawPackageVerso = false;
         havePackageVerso = false;
+        Package::transferCard(pRecto,p);
+        pRecto.clear();
+        p.shuffling();
+        p.returnPackage();
+        drawPackageVerso = true;
+        havePackageVerso = true;
     }
 
     switch(event.type){
@@ -189,6 +195,7 @@ void Game::render(){
                 activeCard = p.takeFirstCard();
 
                 activeCard.setPosition((WIN_W/2)-p.getWidth() - 10, (WIN_H/2)-(p.getHeight()/2));
+                activeCard.rotate(.0f);
                 activeCard.returnCard();
                 drawCard = true;
                 hasClickedPackage = true;
@@ -261,6 +268,20 @@ void Game::render(){
                 havePackageRecto = false;
 
             }
+            if (p.getSize()>0){
+                drawPackageVerso = true;
+                drawPackageVerso = true;
+            }
+            else if (p.getSize() == 0){
+                drawPackageVerso = false;
+                havePackageVerso = false;
+                Package::transferCard(pRecto,p);
+                pRecto.clear();
+                p.shuffling();
+                p.returnPackage();
+                drawPackageVerso = true;
+                havePackageVerso = true;
+            }
             }
 
 
@@ -270,21 +291,7 @@ void Game::render(){
         default:
             break;
         }
-    case sf::Event::KeyReleased:
-        switch(event.key.code){
-        case sf::Keyboard::A:
-            if (activePlayerID >= 1){
-                //it's a bot
 
-
-            }
-        default:
-            break;
-
-
-
-
-        }
         default:
             break;
 

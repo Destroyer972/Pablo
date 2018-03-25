@@ -1,7 +1,12 @@
+/*
+*Using code from SuperFola : https://github.com/SuperFola/Unamed-Endive/blob/master/src/abstract/container.hpp
+*License : CC BY-NC-SA 4.0
+*Modification : nothing
+*/
+
 #ifndef DEF_CONTAINERGUARD
 #define DEF_CONTAINERGUARD
 
-/*Code by SuperFola*/
 
 #include <string>
 #include <unordered_map>

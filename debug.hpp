@@ -1,3 +1,11 @@
+/*
+*Using code from SuperFola : https://github.com/SuperFola/Unamed-Endive/blob/master/debug.hpp
+*License : CC BY-NC-SA 4.0
+*Modification : nothing
+*/
+
+
+
 #ifndef GUARDDEBUG
 #define GUARDDEBUG
 
