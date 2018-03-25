@@ -1,3 +1,9 @@
+#Project files
+*.layout
+*.depend
+*.cbp
+*.dll
+
 # Prerequisites
 *.d
 
