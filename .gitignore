@@ -3,6 +3,7 @@
 *.depend
 *.cbp
 *.dll
+obj/
 
 # Prerequisites
 *.d
