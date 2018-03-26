@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/the-new-sky/Kadot.svg?branch=master)](https://travis-ci.org/the-new-sky/Kadot)
 # Pablo
 
 # Kind of game
