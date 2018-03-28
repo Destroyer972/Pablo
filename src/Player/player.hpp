@@ -4,6 +4,7 @@
 #include "../objects/card.hpp"
 #include "../objects/package.hpp"
 #include <iostream>
+#include <array>
 
 class Player{
 
@@ -19,6 +20,7 @@ public:
     bool haveCard();
     Card& getCard(int x, int y);
     int getPosition();
+
 
     struct pos{
         int x;

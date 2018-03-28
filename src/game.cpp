@@ -67,7 +67,8 @@ Game::Game() :
         havePackageRecto = false;
         activePlayerID=0;
         nextPlayer = false;
-
+        canSayPablo = false;
+        saidPablo = false;
 
 
         //activePlayer = players[0];
@@ -137,7 +138,7 @@ void Game::render(){
 
 
     if (nextPlayer){
-        if (activePlayerID==nbPlayer -1){activePlayerID=0;canPlay = true;}else{activePlayerID++;canPlay = false;}
+        if (activePlayerID==nbPlayer -1){activePlayerID=0;canPlay = true;if(!saidPablo){canSayPablo = true;}}else{activePlayerID++;canPlay = false;canSayPablo = false;}
         nextPlayer = false;
 
     }
@@ -157,6 +158,10 @@ void Game::render(){
         DebugLog(SH_INFO,"le joueur " + std::to_string(activePlayerID) + " a joue");
         nextPlayer = true;
         std::cout << std::to_string(pRecto.getSize()) << std::endl;
+            if (activePlayerID == lastPlayerID){
+                endOfRound();
+
+            }
     }
     if (pRecto.getSize() > 0){
         drawPackageRecto = true;
@@ -291,6 +296,13 @@ void Game::render(){
         default:
             break;
         }
+        case sf::Event::KeyReleased:
+            if (event.key.code == sf::Keyboard::P && canSayPablo){
+                saidPablo = true;
+                canSayPablo = false;
+                lastPlayerID = nbPlayer -1;
+                DebugLog(SH_INFO,"Player 0 say Pablo");
+            }
 
         default:
             break;
@@ -325,6 +337,36 @@ void Game::render(){
 
 
     }
+
+}
+
+void Game::endOfRound(){
+    for(int i=0;i<=nbPlayer -1;i++){
+        players[i]->getCard(0,0).returnCard();
+        players[i]->getCard(1,0).returnCard();
+        players[i]->getCard(0,1).returnCard();
+        players[i]->getCard(1,1).returnCard();
+
+    }
+    int df = compareHandOfPlayer(players);
+    DebugLog(SH_INFO,"Le joueur " + std::to_string(df) + " a gagne ! ");
+
+}
+
+int Game::compareHandOfPlayer(std::array<Player::Ptr,4>& playerArray){
+    int ID = 0;
+    int activeValue =0;
+    int leastValue = 500;
+    for (int i=0;i<=3;i++){
+        activeValue+=playerArray[i]->getCard(0,0).getValue();
+        activeValue+=playerArray[i]->getCard(1,0).getValue();
+        activeValue+=playerArray[i]->getCard(0,1).getValue();
+        activeValue+=playerArray[i]->getCard(1,1).getValue();
+        if (activeValue < leastValue){leastValue = activeValue;ID = i;}
+        DebugLog(SH_INFO,"Le joueur " + std::to_string(i) + " a " + std::to_string(activeValue) + " points");
+    }
+
+    return ID;
 }
 
 

@@ -36,6 +36,9 @@ private:
     sf::Texture tempTexture;
 
 
+    void endOfRound();
+    static int compareHandOfPlayer(std::array<Player::Ptr,4>&); //return the ID of the player who have the hand with least point
+
     //methodes
     void handle_std_events(sf::Event& event);
     void render();
@@ -53,8 +56,13 @@ private:
     bool canPlay = true;
     int activePlayerID;
     std::unique_ptr<std::unique_ptr<Player>> activePlayer = 0;
+
     bool nextPlayer;
     int unloadTexture = 0;
+    bool canSayPablo;
+    bool saidPablo;
+    int lastPlayerID = 100;
+
 
 
 public:
