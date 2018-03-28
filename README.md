@@ -12,7 +12,7 @@ In front of you, you have one pack of cards (returned) and the cemetery. take a 
 When you think have the game with the most little value, say Pablo. From that, the "tour" will be finished and all cards will be return.
 If you have the game with the most little value, you win and you have 0 points, the others players will have points corresponding with the value of their hand.
 However in this game, some cards have special effect. 
-## List of cards with their value and their effects
+## List of cards with their values and their effects
 * card from Ace to 10 : their numbers (1 for the Ace)
 * King of Spades : 0 points
 * Jack and Queen and others Kings : 10 points
