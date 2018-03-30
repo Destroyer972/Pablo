@@ -149,7 +149,7 @@ void Game::render(){
     if (activePlayerID>=1 && havePackageVerso){
         //it's a bot
         Package& pp = players[activePlayerID]->choosePackage(p,pRecto);
-        activeCardVec = pp.takeFirstCard();
+        activeCard = pp.takeFirstCard();
         if (&pp == &p){activeCard.returnCard();}
         activeCard.presentation();
         Player::pos pos = players[activePlayerID]->selectedCard(activeCard);
