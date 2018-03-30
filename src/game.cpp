@@ -69,7 +69,11 @@ Game::Game() :
         nextPlayer = false;
         canSayPablo = false;
         saidPablo = false;
+        std::array<int,4> test;
+        test[0] = 1;
+        int i = 1;
 
+        DebugLog(SH_SPE,std::to_string(test[0]));
 
         //activePlayer = players[0];
     }
@@ -145,7 +149,7 @@ void Game::render(){
     if (activePlayerID>=1 && havePackageVerso){
         //it's a bot
         Package& pp = players[activePlayerID]->choosePackage(p,pRecto);
-        activeCard = pp.takeFirstCard();
+        activeCardVec = pp.takeFirstCard();
         if (&pp == &p){activeCard.returnCard();}
         activeCard.presentation();
         Player::pos pos = players[activePlayerID]->selectedCard(activeCard);
@@ -362,8 +366,12 @@ int Game::compareHandOfPlayer(std::array<Player::Ptr,4>& playerArray){
         activeValue+=playerArray[i]->getCard(1,0).getValue();
         activeValue+=playerArray[i]->getCard(0,1).getValue();
         activeValue+=playerArray[i]->getCard(1,1).getValue();
+
         if (activeValue < leastValue){leastValue = activeValue;ID = i;}
-        DebugLog(SH_INFO,"Le joueur " + std::to_string(i) + " a " + std::to_string(activeValue) + " points");
+
+
+        activeValue = 0;
+
     }
 
     return ID;

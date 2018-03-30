@@ -9,7 +9,8 @@
 class Player{
 
 private:
-    Card carre[2][2];
+    //std::array<std::array<Card,2>,2> carre;
+    std::vector<std::vector<Card>> carre;
     int m_position;
 
 public:

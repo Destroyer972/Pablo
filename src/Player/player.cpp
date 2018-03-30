@@ -5,6 +5,8 @@ Player::Player(){}
 
 Player::Player(int position){
     m_position = position;
+    carre.push_back(std::vector<Card>(2));
+    carre.push_back(std::vector<Card>(2));
 }
 
 void Player::addACard(Card card, int posX, int posY){

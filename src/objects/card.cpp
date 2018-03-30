@@ -16,7 +16,7 @@ Card::Card(Color couleur, int number, State state, sf::Texture& texture,sf::Text
 
 
     if (number <= 10){value = number;}
-    //else if (number == 13 && couleur == Color::Pique){value = 0;}
+    else if (number == 13 && couleur == Color::Pique){value = 0;}
     else {value = 10;}
 
     m_sprite.setScale(.4f,.4f);

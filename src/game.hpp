@@ -29,6 +29,7 @@ private:
     Package p;
     Package pRecto;
     Card activeCard;
+    std::vector<Card> activeCardVec;
     int const nbPlayer = 4;
     //Player* players[4];
     std::array<Player::Ptr,4> players;
