@@ -33,6 +33,8 @@ Card::Card(Color couleur,int number,State state){
 
 }
 
+Card::~Card(){}
+
 void Card::setPosition(int X, int Y){
     this->posX = X;
     this->posY = Y;
@@ -49,6 +51,14 @@ void Card::rotate(float angle){
 void Card::returnCard(){
     if(m_state == State::Recto){m_state = State::Verso;}
     else{m_state = State::Recto;}
+}
+
+const Color Card::getColor(){
+    return this->m_couleur;
+}
+
+const int Card::getNumber(){
+    return this->m_number;
 }
 
 const sf::Texture& Card::getTexture(){
@@ -68,6 +78,9 @@ const int Card::getValue(){
     return value;
 }
 
+bool operator==(Card const& a,Card const& b){
+    if(a.m_number == b.m_number && a.m_couleur == b.m_couleur){return true;}else{return false;}
+}
 
 
 

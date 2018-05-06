@@ -71,7 +71,6 @@ Game::Game() :
         saidPablo = false;
         std::array<int,4> test;
         test[0] = 1;
-        int i = 1;
 
         DebugLog(SH_SPE,std::to_string(test[0]));
 
@@ -108,12 +107,14 @@ int Game::run(){
 
             }
             //On dispatche les events
+
             this->handle_std_events(event);
             //DebugLog(SH_SPE,"spe");
         }
 
         this->window.clear();
         this->render();
+
         this->window.display();
 
          timer += 1.0f;
@@ -126,10 +127,14 @@ void Game::render(){
     if (drawPackageVerso){window.draw(p.getSprite());}
 
         for (int i=0;i<=nbPlayer -1;i++){
-            window.draw(players[i]->getCard(0,0).getSprite());
-            window.draw(players[i]->getCard(1,0).getSprite());
-            window.draw(players[i]->getCard(0,1).getSprite());
-            window.draw(players[i]->getCard(1,1).getSprite());
+
+            if (players[i]->returnSquare()[0][0] != nullptr){window.draw(players[i]->getCard(0,0).getSprite());}
+
+            if (players[i]->returnSquare()[1][0] != nullptr){window.draw(players[i]->getCard(1,0).getSprite());}
+
+            if (players[i]->returnSquare()[0][1] != nullptr){window.draw(players[i]->getCard(0,1).getSprite());}
+
+            if (players[i]->returnSquare()[1][1] != nullptr){window.draw(players[i]->getCard(1,1).getSprite());}
 
         }
 
@@ -142,10 +147,22 @@ void Game::render(){
 
 
     if (nextPlayer){
-        if (activePlayerID==nbPlayer -1){activePlayerID=0;canPlay = true;if(!saidPablo){canSayPablo = true;}}else{activePlayerID++;canPlay = false;canSayPablo = false;}
+        if (activePlayerID==nbPlayer -1){
+            activePlayerID=0;
+            canPlay = true;
+            if(!saidPablo){
+                canSayPablo = true;
+            }
+        }
+        else{
+            activePlayerID++;
+            canPlay = false;
+            canSayPablo = false;
+        }
         nextPlayer = false;
 
     }
+
     if (activePlayerID>=1 && havePackageVerso){
         //it's a bot
         Package& pp = players[activePlayerID]->choosePackage(p,pRecto);
@@ -202,12 +219,13 @@ void Game::render(){
             if (this->p.getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && !hasClickedPackage && canPlay && havePackageVerso) {
                     if (beginParty){players[0]->getCard(0,0).returnCard();players[0]->getCard(1,0).returnCard();beginParty = false;}
                 activeCard = p.takeFirstCard();
-
                 activeCard.setPosition((WIN_W/2)-p.getWidth() - 10, (WIN_H/2)-(p.getHeight()/2));
                 activeCard.rotate(.0f);
                 activeCard.returnCard();
                 drawCard = true;
                 hasClickedPackage = true;
+                DebugLog(SH_SPE,"mark 1");
+
             }
 
             else if(havePackageRecto && !hasClickedPackage && canPlay){
@@ -222,48 +240,112 @@ void Game::render(){
                 }
 
             }
+            if (this->players[0]->returnSquare()[0][0] != nullptr){ // We check if the card exist before check if the player click on this
+                if (this->players[0]->getCard(0,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                    activeCard.returnCard();
+                    bool alpha = false;
+                    Player::pos pos;
+                    pos.x = pos.y = 0;
+                    for (unsigned int i=0;i<activeCardPos.size();i++){
+                        if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){ // If the card was already selected
+                            alpha = true;
+                            break;
+                        }
+                    }if (!alpha){activeCardPos.push_back(pos);DebugLog(SH_SPE,"Card selected");}
+                    activeCardVec = players[0]->changeCard_(activeCard,0,0,activeCardPos);
+                    DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 0;0");
+                    for (int i=0;i<=activeCardVec.size()-1;i++){
+                        activeCardVec[i].returnCard();
+                        pRecto.addCard(activeCardVec[i]);
+                    }
+                    activeCardPos.clear();
+                    activeCardVec.clear();
+                    hasClickedPackage = false;
+                    drawCard = false;
+                    nextPlayer = true;
 
-            if (this->players[0]->getCard(0,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
-                activeCard.returnCard();
-                activeCard = players[0]->changeCard(activeCard,0,0);
-                DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 0;0");
-                activeCard.returnCard();
-                pRecto.addCard(activeCard);
-                hasClickedPackage = false;
-                drawCard = false;
-                nextPlayer = true;
+                    DebugLog(SH_SPE,"00000000");
 
 
+                }
             }
-            else if (this->players[0]->getCard(1,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
-                activeCard.returnCard();
-                activeCard = players[0]->changeCard(activeCard,1,0);
-                DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 1;0");
-                pRecto.addCard(activeCard);
-                hasClickedPackage = false;
-                drawCard = false;
-                nextPlayer = true;
+            if (this->players[0]->returnSquare()[1][0] != nullptr){ // We check if the card exist before check if the player click on this
+                if (this->players[0]->getCard(1,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                    activeCard.returnCard();
+                    bool alpha = false;
+                    Player::pos pos;
+                    pos.x = 1;pos.y = 0;
+                    for (unsigned int i=0;i<activeCardPos.size();i++){
+                        if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+                            alpha = true;
+                            break;
+                        }
+                    }if (!alpha){activeCardPos.push_back(pos);DebugLog(SH_SPE,"Card selected");}
+                    activeCardVec = players[0]->changeCard_(activeCard,1,0,activeCardPos);
+                    DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 1;0");
+                    for (int i=0;i<=activeCardVec.size()-1;i++){
+                        activeCardVec[i].returnCard();
+                        pRecto.addCard(activeCardVec[i]);
+                    }
+                    activeCardPos.clear();
+                    activeCardVec.clear();
+                    hasClickedPackage = false;
+                    drawCard = false;
+                    nextPlayer = true;
+                    DebugLog(SH_SPE,"11111110000");
+                }
             }
+            if (this->players[0]->returnSquare()[0][1] != nullptr){
+                if (this->players[0]->getCard(0,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                    activeCard.returnCard();
+                    bool alpha = false;
+                    Player::pos pos;
+                    pos.x = 0;pos.y = 1;
+                    for (unsigned int i=0;i<activeCardPos.size();i++){
+                        if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+                            alpha = true;
+                            break;
+                        }
+                    }if (!alpha){activeCardPos.push_back(pos);DebugLog(SH_SPE,"Card selected");}
+                    activeCardVec = players[0]->changeCard_(activeCard,0,1,activeCardPos);
+                    DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 0;1");
+                    for (int i=0;i<=activeCardVec.size()-1;i++){
+                        activeCardVec[i].returnCard();
+                        pRecto.addCard(activeCardVec[i]);
+                    }
+                    activeCardPos.clear();
+                    activeCardVec.clear();
+                    hasClickedPackage = false;
+                    drawCard = false;
+                    nextPlayer = true;
 
-            else if (this->players[0]->getCard(0,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
-                activeCard.returnCard();
-                activeCard = players[0]->changeCard(activeCard,0,1);
-                DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 1;0");
-                pRecto.addCard(activeCard);
-                hasClickedPackage = false;
-                drawCard = false;
-                nextPlayer = true;
-
+                }
             }
-            else if (this->players[0]->getCard(1,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
-                activeCard.returnCard();
-                activeCard = players[0]->changeCard(activeCard,1,1);
-                DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 1;0");
-                pRecto.addCard(activeCard);
-                hasClickedPackage = false;
-                drawCard = false;
-                nextPlayer = true;
+            if (this->players[0]->returnSquare()[1][1] != nullptr){
+                if (this->players[0]->getCard(1,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                    activeCard.returnCard();
+                    bool alpha = false;
+                    Player::pos pos;
+                    pos.x = 1;pos.y = 1;
+                    for (unsigned int i=0;i<activeCardPos.size();i++){
+                        if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+                            alpha = true;
+                            break;
+                        }
+                    }if (!alpha){activeCardPos.push_back(pos);DebugLog(SH_SPE,"Card selected");}
+                    activeCardVec = players[0]->changeCard_(activeCard,1,1,activeCardPos);
+                    DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 1;1");
+                    for (int i=0;i<=activeCardVec.size()-1;i++){
+                        activeCardVec[i].returnCard();
+                        pRecto.addCard(activeCardVec[i]);
+                    }
+                    activeCardPos.clear();
+                    activeCardVec.clear();
+                    hasClickedPackage = false;
+                    drawCard = false;
+                    nextPlayer = true;
 
+                }
             }
 
 
@@ -282,6 +364,7 @@ void Game::render(){
                 drawPackageVerso = true;
             }
             else if (p.getSize() == 0){
+                DebugLog(SH_INFO,"The pack is empty");
                 drawPackageVerso = false;
                 havePackageVerso = false;
                 Package::transferCard(pRecto,p);
@@ -292,26 +375,188 @@ void Game::render(){
                 havePackageVerso = true;
             }
             }
-
-
-
-
-
-        default:
             break;
-        }
-        case sf::Event::KeyReleased:
-            if (event.key.code == sf::Keyboard::P && canSayPablo){
-                saidPablo = true;
-                canSayPablo = false;
-                lastPlayerID = nbPlayer -1;
-                DebugLog(SH_INFO,"Player 0 say Pablo");
+
+        case sf::Mouse::Right:
+            if (activePlayerID ==0){
+                bool addPosInActivePos;
+                bool addPosD;
+                Player::pos pos;
+                if (this->players[0]->getCard(0,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                    pos.x = 0; pos.y = 0;
+                    if (activeCardPos.size() >0){
+                        for(int i=0;i<=activeCardPos.size()-1;+i++){
+                            if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+
+                                activeCardPos.erase(activeCardPos.begin() + i);
+                                addPosInActivePos = false;
+                                DebugLog(SH_INFO, "carte en position 0;0 deselectionnee");
+                                break;
+                            }else {addPosInActivePos = true;}
+
+
+                        }
+                    }else {addPosInActivePos = true;}
+                    if (addPosInActivePos){
+                        #ifndef DEV_MODE
+                        if (activecadPos > 0){
+                            for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
+                                if (players[0].getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(0,0).getNumber()){
+                                    DebugLog(SH_INFO,"Vous ne pouvez pas selectionner une carte avec un autre nombre");
+                                    addPosD = false;break;
+                                }else{addPosD = True;}
+                            }
+                        }else{addPosD = True;}
+                        if (addPosD){
+                            activeCardPos.push_back(pos);
+                            DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
+                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                        }
+                        #endif // DEV_MODE
+                        #ifdef DEV_MODE
+                            activeCardPos.push_back(pos);
+                            DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
+                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                        #endif // DEV_MODE
+
+
+                    }
+
+                }
+
+                else if (this->players[0]->getCard(1,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                    pos.x = 1; pos.y = 0;
+                    if (activeCardPos.size() >0){
+                        for(int i=0;i<=activeCardPos.size()-1;+i++){
+                            if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+
+                                activeCardPos.erase(activeCardPos.begin() + i);
+                                addPosInActivePos = false;
+                                DebugLog(SH_INFO, "carte en position 1;0 deselectionnee");
+                                break;
+                            }else {addPosInActivePos = true;}
+
+
+                        }
+                    }else {addPosInActivePos = true;}
+                    if (addPosInActivePos){
+                        #ifndef DEV_MODE
+                        if (activecadPos > 0){
+                            for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
+                                if (players[0].getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(1,0).getNumber()){
+                                    DebugLog(SH_INFO,"You can't select a card with an other number");
+                                    addPosD = false;
+                                    break;
+                                }else{addPosD = True;}
+                            }
+                        }else{addPosD = True;}
+                        if (addPosD){
+                            activeCardPos.push_back(pos);
+                            DebugLog(SH_INFO, "Carte en position 1;0 selectionnee");
+                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                        }
+                        #endif // DEV_MODE
+                        #ifdef DEV_MODE
+                            activeCardPos.push_back(pos);
+                            DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
+                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                        #endif // DEV_MODE
+
+
+                    }
+                }
+
+                else if (this->players[0]->getCard(0,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                    pos.x = 0; pos.y = 1;
+                    if (activeCardPos.size() >0){
+                        for(int i=0;i<=activeCardPos.size()-1;+i++){
+                            if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+
+                                activeCardPos.erase(activeCardPos.begin() + i);
+                                addPosInActivePos = false;
+                                DebugLog(SH_INFO, "carte en position 0;1 deselectionnee");
+                                break;
+                            }else {addPosInActivePos = true;}
+
+
+                        }
+                    }else {addPosInActivePos = true;}
+                    DebugLog(SH_SPE,"testttt");
+                    if (addPosInActivePos){
+                        #ifndef DEV_MODE
+                        if (activecadPos > 0){
+                            for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
+                                if (players[0].getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(0,1).getNumber()){
+                                    DebugLog(SH_INFO,"You can't select a card with an other number");
+                                    addPosD = false;break;
+                                }else{addPosD = True;}
+                            }
+                        }else{addPosD = True;}
+                        if (addPosD){
+                            activeCardPos.push_back(pos);
+                            DebugLog(SH_INFO, "Carte en position 0;1 selectionnee");
+                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                        }
+                        #endif // DEV_MODE
+                        #ifdef DEV_MODE
+                            activeCardPos.push_back(pos);
+                            DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
+                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                        #endif // DEV_MODE
+
+
+                    }
+                }
+
+                else if (this->players[0]->getCard(1,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                    pos.x = 1;
+                    pos.y = 1;
+                    if (activeCardPos.size() >0){
+                        for(int i=0;i<=activeCardPos.size()-1;+i++){
+                            if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+                                    activeCardPos.erase(activeCardPos.begin()+i);
+                                    addPosInActivePos = false;
+                                    DebugLog(SH_INFO, "Carte en position 1;1 deselectionnee");
+                                    break;
+                            }else{addPosInActivePos = true;}
+
+
+                        }
+                    }else {addPosInActivePos = true;}
+                    if (addPosInActivePos){
+                        activeCardPos.push_back(pos);
+                        DebugLog(SH_INFO, "Carte en position 1;1 selectionnee");
+                        DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                    }
+                }
+
+
             }
 
+
         default:
             break;
 
+        }
+
+        break;
+
+    case sf::Event::KeyReleased:
+        if (event.key.code == sf::Keyboard::P && canSayPablo){
+            saidPablo = true;
+            canSayPablo = false;
+            lastPlayerID = nbPlayer -1;
+            DebugLog(SH_INFO,"Player 0 say Pablo");
+        }
+        break;
+
+
+
+    default:
+        break;
+
     }
+
 
  }
 
