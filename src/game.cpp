@@ -382,151 +382,173 @@ void Game::render(){
                 bool addPosInActivePos;
                 bool addPosD;
                 Player::pos pos;
-                if (this->players[0]->getCard(0,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
-                    pos.x = 0; pos.y = 0;
-                    if (activeCardPos.size() >0){
-                        for(int i=0;i<=activeCardPos.size()-1;+i++){
-                            if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+                if (this->players[0]->returnSquare()[0][0] != nullptr){
+                    if (this->players[0]->getCard(0,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                        pos.x = 0; pos.y = 0;
+                        if (activeCardPos.size() >0){
+                            for(int i=0;i<=activeCardPos.size()-1;+i++){
+                                if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
 
-                                activeCardPos.erase(activeCardPos.begin() + i);
-                                addPosInActivePos = false;
-                                DebugLog(SH_INFO, "carte en position 0;0 deselectionnee");
-                                break;
-                            }else {addPosInActivePos = true;}
-
-
-                        }
-                    }else {addPosInActivePos = true;}
-                    if (addPosInActivePos){
-                        #ifndef DEV_MODE
-                        if (activecadPos > 0){
-                            for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
-                                if (players[0].getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(0,0).getNumber()){
-                                    DebugLog(SH_INFO,"Vous ne pouvez pas selectionner une carte avec un autre nombre");
-                                    addPosD = false;break;
-                                }else{addPosD = True;}
-                            }
-                        }else{addPosD = True;}
-                        if (addPosD){
-                            activeCardPos.push_back(pos);
-                            DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
-                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
-                        }
-                        #endif // DEV_MODE
-                        #ifdef DEV_MODE
-                            activeCardPos.push_back(pos);
-                            DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
-                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
-                        #endif // DEV_MODE
-
-
-                    }
-
-                }
-
-                else if (this->players[0]->getCard(1,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
-                    pos.x = 1; pos.y = 0;
-                    if (activeCardPos.size() >0){
-                        for(int i=0;i<=activeCardPos.size()-1;+i++){
-                            if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
-
-                                activeCardPos.erase(activeCardPos.begin() + i);
-                                addPosInActivePos = false;
-                                DebugLog(SH_INFO, "carte en position 1;0 deselectionnee");
-                                break;
-                            }else {addPosInActivePos = true;}
-
-
-                        }
-                    }else {addPosInActivePos = true;}
-                    if (addPosInActivePos){
-                        #ifndef DEV_MODE
-                        if (activecadPos > 0){
-                            for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
-                                if (players[0].getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(1,0).getNumber()){
-                                    DebugLog(SH_INFO,"You can't select a card with an other number");
-                                    addPosD = false;
-                                    break;
-                                }else{addPosD = True;}
-                            }
-                        }else{addPosD = True;}
-                        if (addPosD){
-                            activeCardPos.push_back(pos);
-                            DebugLog(SH_INFO, "Carte en position 1;0 selectionnee");
-                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
-                        }
-                        #endif // DEV_MODE
-                        #ifdef DEV_MODE
-                            activeCardPos.push_back(pos);
-                            DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
-                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
-                        #endif // DEV_MODE
-
-
-                    }
-                }
-
-                else if (this->players[0]->getCard(0,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
-                    pos.x = 0; pos.y = 1;
-                    if (activeCardPos.size() >0){
-                        for(int i=0;i<=activeCardPos.size()-1;+i++){
-                            if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
-
-                                activeCardPos.erase(activeCardPos.begin() + i);
-                                addPosInActivePos = false;
-                                DebugLog(SH_INFO, "carte en position 0;1 deselectionnee");
-                                break;
-                            }else {addPosInActivePos = true;}
-
-
-                        }
-                    }else {addPosInActivePos = true;}
-                    DebugLog(SH_SPE,"testttt");
-                    if (addPosInActivePos){
-                        #ifndef DEV_MODE
-                        if (activecadPos > 0){
-                            for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
-                                if (players[0].getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(0,1).getNumber()){
-                                    DebugLog(SH_INFO,"You can't select a card with an other number");
-                                    addPosD = false;break;
-                                }else{addPosD = True;}
-                            }
-                        }else{addPosD = True;}
-                        if (addPosD){
-                            activeCardPos.push_back(pos);
-                            DebugLog(SH_INFO, "Carte en position 0;1 selectionnee");
-                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
-                        }
-                        #endif // DEV_MODE
-                        #ifdef DEV_MODE
-                            activeCardPos.push_back(pos);
-                            DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
-                            DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
-                        #endif // DEV_MODE
-
-
-                    }
-                }
-
-                else if (this->players[0]->getCard(1,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
-                    pos.x = 1;
-                    pos.y = 1;
-                    if (activeCardPos.size() >0){
-                        for(int i=0;i<=activeCardPos.size()-1;+i++){
-                            if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
-                                    activeCardPos.erase(activeCardPos.begin()+i);
+                                    activeCardPos.erase(activeCardPos.begin() + i);
                                     addPosInActivePos = false;
-                                    DebugLog(SH_INFO, "Carte en position 1;1 deselectionnee");
+                                    DebugLog(SH_INFO, "carte en position 0;0 deselectionnee");
                                     break;
-                            }else{addPosInActivePos = true;}
+                                }else {addPosInActivePos = true;}
+
+
+                            }
+                        }else {addPosInActivePos = true;}
+                        if (addPosInActivePos){
+
+                            #ifndef DEV_MODE
+                            if (activeCardPos.size() > 0){
+                                for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
+                                    if (players[0]->getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(0,0).getNumber()){
+                                        DebugLog(SH_INFO,"Vous ne pouvez pas selectionner une carte avec un autre nombre");
+                                        addPosD = false;break;
+                                    }else{addPosD = true;}
+                                }
+                            }else{addPosD = true;}
+                            if (addPosD){
+                                activeCardPos.push_back(pos);
+                                DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
+                                DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                            }
+                            #else
+                                activeCardPos.push_back(pos);
+                                DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
+                                DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                            #endif // DEV_MODE
 
 
                         }
-                    }else {addPosInActivePos = true;}
-                    if (addPosInActivePos){
-                        activeCardPos.push_back(pos);
-                        DebugLog(SH_INFO, "Carte en position 1;1 selectionnee");
-                        DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+
+                    }
+                }
+                if (this->players[0]->returnSquare()[1][0] != nullptr){
+                    if (this->players[0]->getCard(1,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                        pos.x = 1; pos.y = 0;
+                        if (activeCardPos.size() >0){
+                            for(int i=0;i<=activeCardPos.size()-1;+i++){
+                                if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+
+                                    activeCardPos.erase(activeCardPos.begin() + i);
+                                    addPosInActivePos = false;
+                                    DebugLog(SH_INFO, "carte en position 1;0 deselectionnee");
+                                    break;
+                                }else {addPosInActivePos = true;}
+
+
+                            }
+                        }else {addPosInActivePos = true;}
+                        if (addPosInActivePos){
+                            #ifndef DEV_MODE
+                            if (activeCardPos.size() > 0){
+                                for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
+                                    if (players[0]->getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(1,0).getNumber()){
+                                        DebugLog(SH_INFO,"You can't select a card with an other number");
+                                        addPosD = false;
+                                        break;
+                                    }else{addPosD = true;}
+                                }
+                            }else{addPosD = true;}
+                            if (addPosD){
+                                activeCardPos.push_back(pos);
+                                DebugLog(SH_INFO, "Carte en position 1;0 selectionnee");
+                                DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                            }
+                            #else
+                                activeCardPos.push_back(pos);
+                                DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
+                                DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                            #endif // DEV_MODE
+
+
+                        }
+                    }
+                }
+
+                if (this->players[0]->returnSquare()[0][1] != nullptr){
+                    if (this->players[0]->getCard(0,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                            DebugLog(SH_SPE,"testttt");
+                        pos.x = 0; pos.y = 1;
+                        if (activeCardPos.size() >0){
+                            for(int i=0;i<=activeCardPos.size()-1;+i++){
+                                if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+
+                                    activeCardPos.erase(activeCardPos.begin() + i);
+                                    addPosInActivePos = false;
+                                    DebugLog(SH_INFO, "carte en position 0;1 deselectionnee");
+                                    break;
+                                }else {addPosInActivePos = true;}
+
+
+                            }
+                        }else {addPosInActivePos = true;}
+
+                        if (addPosInActivePos){
+                            #ifndef DEV_MODE
+                            if (activeCardPos.size() > 0){
+                                for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
+                                    if (players[0]->getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(0,1).getNumber()){
+                                        DebugLog(SH_INFO,"You can't select a card with an other number");
+                                        addPosD = false;break;
+                                    }else{addPosD = true;}
+                                }
+                            }else{addPosD = true;}
+                            if (addPosD){
+                                activeCardPos.push_back(pos);
+                                DebugLog(SH_INFO, "Carte en position 0;1 selectionnee");
+                                DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                            }
+                            #else
+                                activeCardPos.push_back(pos);
+                                DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
+                                DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                            #endif // DEV_MODE
+
+
+                        }
+                    }
+                }
+
+                if (this->players[0]->returnSquare()[1][1] != nullptr){
+                    if (this->players[0]->getCard(1,1).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
+                        pos.x = 1;
+                        pos.y = 1;
+                        if (activeCardPos.size() >0){
+                            for(int i=0;i<=activeCardPos.size()-1;+i++){
+                                if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
+                                        activeCardPos.erase(activeCardPos.begin()+i);
+                                        addPosInActivePos = false;
+                                        DebugLog(SH_INFO, "Carte en position 1;1 deselectionnee");
+                                        break;
+                                }else{addPosInActivePos = true;}
+
+
+                            }
+                        }else {addPosInActivePos = true;}
+                        if (addPosInActivePos){
+                            #ifndef DEV_MODE
+                            if (activeCardPos.size() > 0){
+                                for (int i=0;i<=activeCardPos.size()-1;i++){ //Check if the card number correspond with the card number of the other card
+                                    if (players[0]->getCard(activeCardPos[i].x,activeCardPos[i].y).getNumber() != players[0]->getCard(1,1).getNumber()){
+                                        DebugLog(SH_INFO,"You can't select a card with an other number");
+                                        addPosD = false;break;
+                                    }else{addPosD = true;}
+                                }
+                            }else{addPosD = true;}
+                            if (addPosD){
+                                activeCardPos.push_back(pos);
+                                DebugLog(SH_INFO, "Carte en position 1;1 selectionnee");
+                                DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                            }
+                            #else
+                                activeCardPos.push_back(pos);
+                                DebugLog(SH_INFO, "Carte en position 0;0 selectionnee");
+                                DebugLog(SH_SPE,std::to_string(activeCardPos.size()) + " cartes ont ete selctionnees");
+                            #endif // DEV_MODE
+                        }
                     }
                 }
 

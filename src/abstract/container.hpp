@@ -64,10 +64,12 @@ ContainerType& Container<ContainerType>::get(const std::string& name)
 {
     auto it = this->content.find(name);
 
-    if (it == this->content.end())
+    if (it == this->content.end()){
         DebugLog(SH_ERR, "Can not find object with name " << name);
-    else
+    }
+    else{
         return it->second;
+    }
 }
 
 
