@@ -4,6 +4,7 @@
 *.cbp
 *.dll
 obj/
+build/
 
 # Prerequisites
 *.d
