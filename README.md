@@ -15,7 +15,7 @@ However in this game, some cards have special effect.
 ## List of cards with their values and their effects
 * card from Ace to 10 : their numbers (1 for the Ace)
 * King of Spades : 0 points
-* Jack and Queen and others Kings : 10 points
+* Jack, Queen and others Kings : 10 points
 
 # Requirement
 Actually you need to install the game from the source, you need to have an up-date-compiler C++ and the SFML 2.4.2 
