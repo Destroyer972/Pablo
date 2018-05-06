@@ -23,7 +23,7 @@ Actually you need to install the game from the source, you need to have an up-da
 Executables comming soon
 
 # Note for compiling the project
-If you use code::block like compiler, you need to compile the SFML on yourself with CMake
+If you use code::block as compiler, you need to compile the SFML on yourself with CMake
 
 # Credits
 Thanks to :
