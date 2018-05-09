@@ -8,7 +8,7 @@
 #include <iostream>
 #include <array>
 
-
+#include "scenes/inGame.hpp"
 
 #include "abstract/container.hpp"
 #include "objects/card.hpp"
@@ -23,47 +23,15 @@ class Game{
 private:
     //variables
     sf::RenderWindow window;
-    Container<sf::Texture> textures;
     sf::Clock clock;
-    std::vector<Card> cardArray;
-    Package p;
-    Package pRecto;
-    Card activeCard;
-    std::vector<Card> activeCardVec;
-    std::vector<Player::pos> activeCardPos;
-    int const nbPlayer = 4;
-    //Player* players[4];
-    std::array<Player::Ptr,4> players;
-    sf::Texture textureCardArray[52];
-    sf::Texture tempTexture;
-
-
-    void endOfRound();
-    static int compareHandOfPlayer(std::array<Player::Ptr,4>&); //return the ID of the player who have the hand with least point
+    InGame IG;
+    sf::Drawable& activeScene;
 
     //methodes
     void handle_std_events(sf::Event& event);
     void render();
     void update_fps(sf::Time, int&);
-    void cardDistribution(Package& package);
-    void generatePlayers();
 
-    bool drawCard;
-    bool drawPackageRecto;
-    bool drawPackageVerso;
-    bool hasClickedPackage;
-    bool havePackageRecto;
-    bool havePackageVerso;
-    bool beginParty;
-    bool canPlay = true;
-    int activePlayerID;
-    std::unique_ptr<std::unique_ptr<Player>> activePlayer = 0;
-
-    bool nextPlayer;
-    int unloadTexture = 0;
-    bool canSayPablo;
-    bool saidPablo;
-    int lastPlayerID = 100;
 
 
 
