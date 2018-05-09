@@ -48,8 +48,8 @@ void Package::setPosition(int posX,int posY){
     m_sprite.move(m_posX,m_posY);
 }
 
-sf::Sprite& Package::getSprite(){
-return m_sprite;
+const sf::Sprite& Package::getSprite() const{
+    return m_sprite;
 }
 
 float Package::getWidth(){
@@ -112,7 +112,7 @@ void Package::clear(){
 }
 
 void Package::returnPackage(){
-    for (int i=0;i<m_cardArray.size();i++){
+    for (unsigned int i=0;i<m_cardArray.size();i++){
         m_cardArray[i].returnCard();
     }
 }

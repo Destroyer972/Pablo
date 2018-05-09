@@ -114,7 +114,7 @@ Card& Player::getCard(int x, int y){
 std::vector<Card> Player::changeCard_(Card card,int x,int y,std::vector<Player::pos> posArray){
     std::vector<Card> cards; //Tableau contenant les cartes du joueur a echanger
     Card c; //tempory card
-    for (int i=0;i<posArray.size();i++){
+    for (unsigned int i=0;i<posArray.size();i++){
 
         c = *carre[posArray[i].x][posArray[i].y];
 
@@ -139,5 +139,4 @@ const std::array<std::array<Card::Ptr,2>,2>& Player::returnSquare(){
     return carre;
 }
 
-Package& Player::choosePackage(Package& pVerso,Package& pRecto){}
-Player::pos Player::selectedCard(Card& activeCard){}
+

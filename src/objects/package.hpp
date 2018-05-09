@@ -30,7 +30,7 @@ public:
     Package(std::vector<Card>, State,sf::Texture& bkgTexture);
     void shuffling();
     void setPosition(int posX,int posY);
-    sf::Sprite& getSprite();
+    const sf::Sprite& getSprite() const;
     float getWidth();
     float getHeight();
     Card& getFirstCard();

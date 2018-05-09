@@ -69,7 +69,7 @@ const void Card::presentation(){
     DebugLog(SH_INFO," " + std::to_string(this->m_number) + " de " + colorToString(this->m_couleur));
 }
 
-const sf::Sprite& Card::getSprite(){
+const sf::Sprite& Card::getSprite() const{
     if (m_state == State::Recto){return m_sprite;}
     else {return m_bkgSprite;}
 }

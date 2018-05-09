@@ -36,8 +36,8 @@ public:
     using Ptr = std::unique_ptr<Player>;
 
     //virtual function
-    virtual Package& choosePackage(Package& pVerso,Package& pRecto);
-    virtual Player::pos selectedCard(Card& activeCard);
+    virtual Package& choosePackage(Package& pVerso,Package& pRecto){};
+    virtual Player::pos selectedCard(Card& activeCard){};
 };
 
 #endif // DEF_PLAYER

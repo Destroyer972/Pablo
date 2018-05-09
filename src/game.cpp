@@ -74,6 +74,7 @@ Game::Game() :
 
         DebugLog(SH_SPE,std::to_string(test[0]));
 
+
         //activePlayer = players[0];
     }
 
@@ -138,8 +139,6 @@ void Game::render(){
 
         }
 
-    if (drawCard){window.draw(activeCard.getSprite());}
-    if (drawPackageRecto){window.draw(pRecto.getSprite());}
 
 }
 
@@ -254,7 +253,7 @@ void Game::render(){
                     }if (!alpha){activeCardPos.push_back(pos);DebugLog(SH_SPE,"Card selected");}
                     activeCardVec = players[0]->changeCard_(activeCard,0,0,activeCardPos);
                     DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 0;0");
-                    for (int i=0;i<=activeCardVec.size()-1;i++){
+                    for (unsigned int i=0;i<=activeCardVec.size()-1;i++){
                         activeCardVec[i].returnCard();
                         pRecto.addCard(activeCardVec[i]);
                     }
@@ -283,7 +282,7 @@ void Game::render(){
                     }if (!alpha){activeCardPos.push_back(pos);DebugLog(SH_SPE,"Card selected");}
                     activeCardVec = players[0]->changeCard_(activeCard,1,0,activeCardPos);
                     DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 1;0");
-                    for (int i=0;i<=activeCardVec.size()-1;i++){
+                    for (unsigned int i=0;i<=activeCardVec.size()-1;i++){
                         activeCardVec[i].returnCard();
                         pRecto.addCard(activeCardVec[i]);
                     }
@@ -309,7 +308,7 @@ void Game::render(){
                     }if (!alpha){activeCardPos.push_back(pos);DebugLog(SH_SPE,"Card selected");}
                     activeCardVec = players[0]->changeCard_(activeCard,0,1,activeCardPos);
                     DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 0;1");
-                    for (int i=0;i<=activeCardVec.size()-1;i++){
+                    for (unsigned int i=0;i<=activeCardVec.size()-1;i++){
                         activeCardVec[i].returnCard();
                         pRecto.addCard(activeCardVec[i]);
                     }
@@ -335,7 +334,7 @@ void Game::render(){
                     }if (!alpha){activeCardPos.push_back(pos);DebugLog(SH_SPE,"Card selected");}
                     activeCardVec = players[0]->changeCard_(activeCard,1,1,activeCardPos);
                     DebugLog(SH_INFO, "echange de carte entre la pioche et la carte en position 1;1");
-                    for (int i=0;i<=activeCardVec.size()-1;i++){
+                    for (unsigned int i=0;i<=activeCardVec.size()-1;i++){
                         activeCardVec[i].returnCard();
                         pRecto.addCard(activeCardVec[i]);
                     }
@@ -386,7 +385,7 @@ void Game::render(){
                     if (this->players[0]->getCard(0,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
                         pos.x = 0; pos.y = 0;
                         if (activeCardPos.size() >0){
-                            for(int i=0;i<=activeCardPos.size()-1;+i++){
+                            for(unsigned int i=0;i<=activeCardPos.size()-1;+i++){
                                 if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
 
                                     activeCardPos.erase(activeCardPos.begin() + i);
@@ -429,7 +428,7 @@ void Game::render(){
                     if (this->players[0]->getCard(1,0).getSprite().getGlobalBounds().contains(event.mouseButton.x,event.mouseButton.y) && hasClickedPackage == true){
                         pos.x = 1; pos.y = 0;
                         if (activeCardPos.size() >0){
-                            for(int i=0;i<=activeCardPos.size()-1;+i++){
+                            for(unsigned int i=0;i<=activeCardPos.size()-1;+i++){
                                 if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
 
                                     activeCardPos.erase(activeCardPos.begin() + i);
@@ -473,7 +472,7 @@ void Game::render(){
                             DebugLog(SH_SPE,"testttt");
                         pos.x = 0; pos.y = 1;
                         if (activeCardPos.size() >0){
-                            for(int i=0;i<=activeCardPos.size()-1;+i++){
+                            for(unsigned int i=0;i<=activeCardPos.size()-1;+i++){
                                 if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
 
                                     activeCardPos.erase(activeCardPos.begin() + i);
@@ -517,7 +516,7 @@ void Game::render(){
                         pos.x = 1;
                         pos.y = 1;
                         if (activeCardPos.size() >0){
-                            for(int i=0;i<=activeCardPos.size()-1;+i++){
+                            for(unsigned int i=0;i<=activeCardPos.size()-1;+i++){
                                 if (activeCardPos[i].x == pos.x && activeCardPos[i].y == pos.y){
                                         activeCardPos.erase(activeCardPos.begin()+i);
                                         addPosInActivePos = false;

@@ -40,7 +40,7 @@ public:
 
     const Color getColor();
     const int getNumber();
-    const sf::Sprite& getSprite();
+    const sf::Sprite& getSprite() const;
     const sf::Texture& getTexture();
     const void presentation();
     const int getValue();
@@ -55,13 +55,19 @@ public:
         switch (col){
         case Color::Pique:
             return "Pique";
+            break;
         case Color::Trefle:
             return "Trefle";
+            break;
         case Color::Carreau:
             return "Carreau";
+            break;
         case Color::Coeur:
             return "Coeur";
-
+            break;
+        default:
+            return "";
+            break;
             }
     }
 
